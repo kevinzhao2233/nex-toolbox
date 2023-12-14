@@ -19,11 +19,15 @@
         "types": [
           {
             "type": "feat",
-            "section": "✨新功能"
+            "section": "✨ 新功能"
+          },
+          {
+            "type": "chore",
+            "section": "🐳 其他更新"
           },
           {
             "type": "fix",
-            "section": "🐛Bug修复"
+            "section": "🐛 Bug修复"
           }
         ]
       }

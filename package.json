@@ -13,8 +13,12 @@
     "lint:fix": "pnpm lint --fix"
   },
   "nano-staged": {
-    "*.{vue}": ["eslint --fix"],
-    "*.{js,cjs,mjs,jsx,ts,cts,mts,tsx}": ["eslint --fix"]
+    "*.{vue}": [
+      "eslint --fix"
+    ],
+    "*.{js,cjs,mjs,jsx,ts,cts,mts,tsx}": [
+      "eslint --fix"
+    ]
   },
   "simple-git-hooks": {
     "pre-commit": "npx nano-staged",

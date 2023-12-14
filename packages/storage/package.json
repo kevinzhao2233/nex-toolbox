@@ -20,7 +20,7 @@
   "type": "module",
   "scripts": {
     "build": "rollup -c rollup.config.js",
-    ""
+    "release": "release-it"
   },
   "files": [
     "dist",
