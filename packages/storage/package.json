@@ -19,7 +19,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "rollup -c rollup.config.js"
+    "build": "rollup -c rollup.config.js",
+    ""
   },
   "files": [
     "dist",

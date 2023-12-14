@@ -5,14 +5,14 @@
     "tagAnnotation": "chore(release): ${version}"
   },
   "github": {
-    "release": true,
+    "release": false,
     "comments": {
-      "submit": true
+      "submit": false
     }
   },
   "plugins": {
     "@release-it/conventional-changelog": {
-      "infile": "docs/CHANGELOG.md",
+      "infile": "CHANGELOG.md",
       "header": "# 更新日志 🎉🎉🎉",
       "preset": {
         "name": "conventionalcommits",
