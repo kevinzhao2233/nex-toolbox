@@ -1,0 +1,31 @@
+{
+  "name": "@nex-toolbox/storage",
+  "version": "0.0.1",
+  "description": "也是一个封装 localStorage 和 sessionStorage 的轻量级工具",
+  "keywords": [
+    "storage",
+    "browser"
+  ],
+  "main": "",
+  "module": "",
+  "types": "",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "module": "./dist/index.es.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c rollup.config.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "node": "^18.0.0 || >= 20.0.0"
+  }
+}

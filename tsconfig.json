@@ -1,0 +1,17 @@
+{
+  "extends": ["@tsconfig/node-lts/tsconfig.json"],
+  "compilerOptions": {
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+  },
+
+  "exclude": [
+    "lib",
+    "node_modules",
+    "rollup.config.js",
+    "example",
+  ]
+}
