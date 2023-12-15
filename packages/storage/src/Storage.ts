@@ -4,13 +4,13 @@ export interface StorageOption {
   driver?: Storage;
   /** 名称前缀，方便区分 */
   prefix?: string;
-  /** 加密，配合解密 decryptFn 使用，需要保证使用统一算法加解密 */
+  /** set 时对数据进行加密，配合解密 decryptFn 使用，需要保证使用统一算法加解密 */
   encryptFn?: StorageCryptFn;
-  /** 解密，配合加密 encryptFn 使用，需要保证使用统一算法加解密 */
+  /** get 时对数据进行解密，配合加密 encryptFn 使用，需要保证使用统一算法加解密 */
   decryptFn?: StorageCryptFn;
 }
 export interface StorageConfig {
-  // 过期时间 单位秒
+  // 过期时间，单位为秒
   expire?: number;
 }
 export interface StorageData<T = unknown> {
@@ -20,7 +20,7 @@ export interface StorageData<T = unknown> {
 /**
  * 封装Store，支持存储对象和过期时间
  */
-export default class UStorage {
+export default class StorageCls {
   private driver: Storage;
 
   private prefix: string;

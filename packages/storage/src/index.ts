@@ -1,8 +1,8 @@
-import UStorage, { type StorageConfig, type StorageOption } from './Storage';
+import StorageCls, { type StorageConfig, type StorageOption } from './Storage';
 
-export default UStorage;
+export { StorageCls };
 
-const globalStorage = new UStorage({ driver: window.localStorage });
+const globalStorage = new StorageCls({ driver: window.localStorage });
 // 设置全局缓存配置
 export const setStorageConfig = (config: StorageOption) => {
   globalStorage.config(config);
