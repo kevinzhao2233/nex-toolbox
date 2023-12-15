@@ -1,4 +1,4 @@
-import typescript from '@rollup/plugin-typescript';
+import esbuild from 'rollup-plugin-esbuild';
 import { cleandir } from 'rollup-plugin-cleandir';
 import dts from 'rollup-plugin-dts';
 
@@ -17,7 +17,7 @@ export default [
         sourcemap: true,
       },
     ],
-    plugins: [typescript({ compilerOptions: { target: 'es6' } }), cleandir('dist')],
+    plugins: [esbuild({ target: 'es2018' }), cleandir('dist')],
   },
   {
     input: 'src/index.ts',
