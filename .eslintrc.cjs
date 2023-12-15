@@ -68,5 +68,6 @@ module.exports = {
     camelcase: 'off',
     'no-redeclare': 'off',
     'no-nested-ternary': 'off',
+    'class-methods-use-this': ['error', { enforceForClassFields: false }],
   },
 };
