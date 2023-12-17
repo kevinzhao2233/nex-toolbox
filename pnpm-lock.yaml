@@ -92,6 +92,12 @@ importers:
 
   packages/storage: {}
 
+  packages/composables:
+    devDependencies:
+      vue:
+        specifier: ^3.3.11
+        version: 3.3.11(typescript@5.3.3)
+
 packages:
 
   /@aashutoshrathi/word-wrap@1.2.6:
@@ -2208,7 +2214,7 @@ packages:
     dev: true
 
   /estree-walker@2.0.2:
-    resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
+    resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==, tarball: https://registry.npmmirror.com/estree-walker/-/estree-walker-2.0.2.tgz}
 
   /esutils@2.0.3:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
