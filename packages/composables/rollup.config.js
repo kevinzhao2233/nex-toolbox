@@ -18,10 +18,16 @@ export default [
       },
     ],
     plugins: [esbuild({ target: 'es2018' }), cleandir('dist')],
+    external: ['vue'],
   },
   {
     input: 'src/index.ts',
     output: [{ file: 'dist/index.d.ts', format: 'es' }],
-    plugins: [dts()],
+    plugins: [dts({
+      compilerOptions: {
+        preserveSymlinks: false,
+      },
+    })],
+    external: ['vue'],
   },
 ];

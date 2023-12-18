@@ -9,14 +9,25 @@ export interface IInitSearchParams extends Partial<IPagination> {
   [key: string]: any;
 }
 
+export interface IOptions {
+  immediate?: boolean;
+  searchAfterReset?: boolean;
+  loop?: boolean;
+  loopInterval?: number;
+}
+
 export function useSearch(
   searchFn: (params: any) => Promise<any>,
   initSearchParams: IInitSearchParams = {},
-  immediate = true,
-  searchAfterReset = true,
-  loop = false,
-  loopInterval = 10 * 1000,
+  options: IOptions = {},
 ) {
+  const {
+    immediate = true,
+    searchAfterReset = true,
+    loop = false,
+    loopInterval = 10 * 1000,
+  } = options;
+
   const { pageNum, pageSize, ...params } = initSearchParams;
   const searchParams = ref(params);
 
@@ -62,10 +73,12 @@ export function useSearch(
     await dosearch();
   }
 
+  const lastSearchTimeStamp = ref<number | null>(null);
   const searching = ref(false);
   async function dosearch() {
     searching.value = true;
     const result = await searchFn(innerParams);
+    lastSearchTimeStamp.value = Date.now();
     searchResult.value = result;
     searching.value = false;
   }
@@ -88,5 +101,6 @@ export function useSearch(
     reset,
     resetting,
     searching,
+    lastSearchTimeStamp,
   };
 }

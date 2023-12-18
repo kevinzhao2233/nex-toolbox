@@ -71,6 +71,9 @@ importers:
 
   examples/example-vue3:
     dependencies:
+      '@nex-toolbox/composables':
+        specifier: workspace:*
+        version: link:../../packages/composables
       '@nex-toolbox/functions':
         specifier: workspace:^
         version: link:../../packages/functions
@@ -88,15 +91,15 @@ importers:
         specifier: ^5.0.9
         version: 5.0.9(@types/node@20.10.4)
 
-  packages/functions: {}
-
-  packages/storage: {}
-
   packages/composables:
     devDependencies:
       vue:
         specifier: ^3.3.11
         version: 3.3.11(typescript@5.3.3)
+
+  packages/functions: {}
+
+  packages/storage: {}
 
 packages:
 

@@ -9,6 +9,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@nex-toolbox/composables": "workspace:^",
     "@nex-toolbox/functions": "workspace:^",
     "@nex-toolbox/storage": "workspace:^",
     "vue": "^3.3.11"
