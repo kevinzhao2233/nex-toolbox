@@ -1,3 +1,8 @@
+.DS_Store
+
+*.local
 node_modules
 dist
 docs/.vitepress/cache
+# 测试覆盖率生成的文件夹
+coverage
