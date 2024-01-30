@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "前端工具箱",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
