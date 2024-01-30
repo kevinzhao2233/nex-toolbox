@@ -1,6 +1,6 @@
 {
   "name": "@nex-toolbox/storage",
-  "version": "0.0.1",
+  "version": "0.0.1-1",
   "description": "也是一个封装 localStorage 和 sessionStorage 的轻量级工具",
   "keywords": [
     "storage",
@@ -29,5 +29,8 @@
   ],
   "engines": {
     "node": "^18.0.0 || >= 20.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
