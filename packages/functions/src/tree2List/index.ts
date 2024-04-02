@@ -15,7 +15,7 @@ export const tree2List = (treeArray: Record<string | number | symbol, any>[], id
       // 将当前节点添加到结果数组中
       list.push({ ...item, [pidKey]: parent || null });
       // 如果当前节点有子节点，则递归处理子节点
-      if (item[childrenKey].length > 0) {
+      if (item[childrenKey]?.length > 0) {
         convertTreeToArray(item[childrenKey], item[idKey]);
         delete item[childrenKey];
       }
