@@ -21,13 +21,3 @@ export const list2Tree = (list: Record<string | number | symbol, any>[], idKey =
   });
   return rootList;
 };
-
-const list = [
-  { id: 1, pid: 0 },
-  { id: 2, pid: 1 },
-  { id: 3, pid: 2 },
-  { id: 4, pid: 0 },
-  { id: 5, pid: 4 },
-];
-
-console.log(list2Tree(list));
