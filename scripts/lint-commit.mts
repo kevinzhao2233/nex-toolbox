@@ -9,6 +9,6 @@ const commitRE = /^(feat|fix|docs|dx|style|refactor|perf|test|workflow|build|ci|
 
 if (!commitRE.test(msg)) {
   console.log();
-  console.error(`${chalk.bgRed.white('ERROR ')} ${chalk.red('提交消息格式无效。')}\n\n${chalk.red('自动生成 ChangeLog 需要正确的提交消息格式。 例如：\n\n')}${chalk.green('feat(compiler): add "comments" option')}\n${chalk.green('fix(v-model): handle events on blur (close #28)')}\n\n${chalk.red('  See .github/commit-convention.md for more details.\n')}`);
+  console.error(`${chalk.bgRed.white('ERROR ')} ${chalk.red('提交消息格式无效。')}\n\n${chalk.red('自动生成 ChangeLog 需要正确的提交消息格式。 例如：\n\n')}${chalk.green('feat(functions): 添加 delay 方法')}\n${chalk.green('fix(v-model): handle events on blur (close #28)')}\n`);
   process.exit(1);
 }
