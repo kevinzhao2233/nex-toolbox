@@ -1,6 +1,6 @@
 {
   "name": "@nex-toolbox/functions",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "汇总了很多常用 JS 方法",
   "keywords": [
     "function",
