@@ -17,3 +17,19 @@ export const getStorage = <T = any>(key: string) => globalStorage.get<T>(key);
 export const removeStorage = (...keys: string[]) => globalStorage.remove(...keys);
 // 清楚缓存
 export const clearStorage = () => globalStorage.clear();
+// 清除缓存，但排除特定 key
+export const clearStorageExclude = (...keys: string[]) => {
+  const valuesToKeep: Record<string, any> = {};
+
+  keys.forEach((key) => {
+    const value = getStorage(key);
+    if (value !== null) {
+      valuesToKeep[key] = value;
+    }
+  });
+
+  clearStorage();
+  Object.keys(valuesToKeep).forEach((key) => {
+    setStorage(key, valuesToKeep[key]);
+  });
+};
