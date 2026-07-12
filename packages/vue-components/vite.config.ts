@@ -28,14 +28,23 @@ export default defineConfig({
       },
     },
     rollupOptions: {
-      external: ['vue'],
+      external: [
+        'vue',
+        'ant-design-vue',
+        '@icon-park/vue-next',
+        '@vueuse/core',
+      ],
       output: {
         globals: {
           vue: 'Vue',
+          'ant-design-vue': 'antd',
+          '@icon-park/vue-next': 'IconPark',
+          '@vueuse/core': 'VueUse',
         },
         assetFileNames: (assetInfo) => {
-          if (assetInfo.name === 'style.css') return 'index.css';
-          return assetInfo.name as string;
+          const name = assetInfo.names?.[0] ?? assetInfo.name ?? '';
+          if (name.endsWith('.css')) return 'index.css';
+          return name;
         },
       },
     },

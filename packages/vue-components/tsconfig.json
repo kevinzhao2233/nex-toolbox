@@ -6,7 +6,8 @@
     "moduleResolution": "Bundler",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "strict": true,
-    "noEmit": true
+    "noEmit": true,
+    "customConditions": ["import"]
   },
   "include": ["src/**/*", "vite.config.ts"]
 }
