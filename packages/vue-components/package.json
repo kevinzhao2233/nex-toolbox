@@ -1,6 +1,6 @@
 {
   "name": "@nex-toolbox/vue-components",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Vue 3 小众组件库",
   "type": "module",
   "main": "./dist/index.js",
@@ -36,9 +36,15 @@
     "@vueuse/core": "^14.0.0"
   },
   "peerDependenciesMeta": {
-    "ant-design-vue": { "optional": true },
-    "@icon-park/vue-next": { "optional": true },
-    "@vueuse/core": { "optional": true }
+    "ant-design-vue": {
+      "optional": true
+    },
+    "@icon-park/vue-next": {
+      "optional": true
+    },
+    "@vueuse/core": {
+      "optional": true
+    }
   },
   "dependencies": {
     "codemirror": "^6.0.2",
