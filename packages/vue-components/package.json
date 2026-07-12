@@ -1,0 +1,47 @@
+{
+  "name": "@nex-toolbox/vue-components",
+  "version": "0.0.1",
+  "description": "Vue 3 组件库",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.js"
+    },
+    "./dist/*": "./dist/*",
+    "./*": "./*"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": [
+    "*.css",
+    "*.scss"
+  ],
+  "engines": {
+    "node": "^18.0.0 || >= 20.0.0"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0"
+  },
+  "devDependencies": {
+    "vue": "^3.5.39",
+    "vite": "^8.1.4",
+    "@vitejs/plugin-vue": "^6.0.7",
+    "unplugin-dts": "^1.0.3",
+    "@vue/test-utils": "^2.4.11"
+  },
+  "scripts": {
+    "build": "vite build",
+    "release": "release-it"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT"
+}

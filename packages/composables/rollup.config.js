@@ -1,6 +1,6 @@
 import esbuild from 'rollup-plugin-esbuild';
 import { cleandir } from 'rollup-plugin-cleandir';
-import dts from 'rollup-plugin-dts';
+import dts from 'unplugin-dts/rollup';
 
 export default [
   {
@@ -17,17 +17,11 @@ export default [
         sourcemap: true,
       },
     ],
-    plugins: [esbuild({ target: 'es2018' }), cleandir('dist')],
-    external: ['vue'],
-  },
-  {
-    input: 'src/index.ts',
-    output: [{ file: 'dist/index.d.ts', format: 'es' }],
-    plugins: [dts({
-      compilerOptions: {
-        preserveSymlinks: false,
-      },
-    })],
+    plugins: [
+      esbuild({ target: 'es2018' }),
+      cleandir('dist'),
+      dts({ outDirs: ['dist'] }),
+    ],
     external: ['vue'],
   },
 ];

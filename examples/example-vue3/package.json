@@ -12,10 +12,11 @@
     "@nex-toolbox/composables": "workspace:^",
     "@nex-toolbox/functions": "workspace:^",
     "@nex-toolbox/storage": "workspace:^",
-    "vue": "^3.3.11"
+    "@nex-toolbox/vue-components": "workspace:^",
+    "vue": "^3.5.39"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.5.2",
-    "vite": "^5.0.9"
+    "@vitejs/plugin-vue": "^6.0.7",
+    "vite": "^8.1.4"
   }
 }

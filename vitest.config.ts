@@ -1,19 +1,20 @@
 import { resolve } from 'node:path';
 import { defineConfig } from 'vitest/config';
+import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
+  plugins: [vue()],
   resolve: {
     alias: {
-      '@vueuse/storage': resolve(__dirname, 'packages/storage/src/index.ts'),
-      '@vueuse/functions': resolve(__dirname, 'packages/functions/src/index.ts'),
-      '@vueuse/composables': resolve(__dirname, 'packages/composables/src/index.ts'),
+      '@nex-toolbox/storage': resolve(__dirname, 'packages/storage/src/index.ts'),
+      '@nex-toolbox/functions': resolve(__dirname, 'packages/functions/src/index.ts'),
+      '@nex-toolbox/composables': resolve(__dirname, 'packages/composables/src/index.ts'),
+      '@nex-toolbox/vue-components': resolve(__dirname, 'packages/vue-components/src/index.ts'),
     },
-    // 如果你在你的应用程序中有相同依赖的副本（比如 monorepos），请使用此选项强制始终将列出的依赖项解析为同一副本（从项目根目录）
-    dedupe: [],
+    dedupe: ['vue'],
   },
   test: {
     environment: 'jsdom',
-    reporters: 'basic',
     coverage: {
       reporter: ['text', 'json'],
       include: ['packages/*'],

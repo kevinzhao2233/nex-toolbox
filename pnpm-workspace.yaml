@@ -4,3 +4,20 @@ packages:
   - '!packages/share'
   - 'examples/*'
   - 'docs'
+allowBuilds:
+  ',': true
+  '-': true
+  b: true
+  d: true
+  e: true
+  g: true
+  h: true
+  i: true
+  k: true
+  l: true
+  m: true
+  o: true
+  p: true
+  s: true
+  t: true
+  u: true
