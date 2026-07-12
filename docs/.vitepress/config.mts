@@ -2,8 +2,9 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  lang: 'zh-CN',
   title: "nex-toolbox",
-  description: "nex-toolbox 文档",
+  description: "一个简单的前端工具箱",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
