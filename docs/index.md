@@ -4,21 +4,21 @@ layout: home
 
 hero:
   name: "nex-toolbox"
-  text: "nex-toolbox 文档"
-  tagline: My great project tagline
+  text: "一个简单的前端工具箱"
+  tagline: Vue Compositions、常用浏览器 Api 封装、工具函数
   actions:
     - theme: brand
-      text: Markdown Examples
+      text: 快速开始
       link: /markdown-examples
     - theme: alt
-      text: API Examples
+      text: GitHub
       link: /api-examples
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Vue Compositions
+    details: 常用的 Vue Compositions 手到擒来
+  - title: 类型安全
+    details: 使用 TypeScript 编写
   - title: Feature C
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---
