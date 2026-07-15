@@ -103,6 +103,20 @@ export default class StorageCls {
     this.driver.clear();
   }
 
+  /**
+   * 获取所有缓存 key（不含前缀）
+   */
+  keys(): string[] {
+    const result: string[] = [];
+    for (let i = 0; i < this.driver.length; i++) {
+      const fullKey = this.driver.key(i);
+      if (fullKey && fullKey.startsWith(this.prefix)) {
+        result.push(fullKey.slice(this.prefix.length));
+      }
+    }
+    return result;
+  }
+
   private getKey(key: string) {
     return this.prefix + key;
   }
