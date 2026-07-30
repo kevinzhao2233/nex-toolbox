@@ -8,12 +8,9 @@ export default defineConfig({
     vue(),
     dts({
       tsconfigPath: resolve(__dirname, './tsconfig.json'),
-      outDirs: ['dist'],
+      include: ['src/**/*.ts', 'src/**/*.vue'],
       insertTypesEntry: true,
       staticImport: true,
-      bundleTypes: {
-        bundledPackages: [],
-      },
     }),
   ],
   build: {
