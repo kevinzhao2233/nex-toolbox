@@ -63,7 +63,7 @@ const createMarkdown = (doc: string) => {
     breaks: false,
     linkify: true,
     typographer: true,
-    highlight(code, language) {
+    highlight(code: string, language?: string | null) {
       const validLang = !!(language && hljs.getLanguage(language));
       if (validLang) {
         const lang = language ?? '';

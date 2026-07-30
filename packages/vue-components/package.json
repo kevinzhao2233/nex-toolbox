@@ -73,6 +73,8 @@
   },
   "devDependencies": {
     "@icon-park/vue-next": "^1.4.2",
+    "@types/markdown-it": "^14.1.2",
+    "@types/markdown-it-link-attributes": "^3.0.5",
     "@vitejs/plugin-vue": "^6.0.7",
     "@vue/test-utils": "^2.4.11",
     "@vueuse/core": "^14.3.0",
