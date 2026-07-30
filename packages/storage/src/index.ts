@@ -1,6 +1,6 @@
 import StorageCls, { type StorageConfig, type StorageOption, type StorageKey } from './Storage';
 
-export { StorageCls, type StorageKey };
+export { StorageCls, type StorageKey, type StorageConfig, type StorageOption };
 
 const globalStorage = new StorageCls({ driver: window.localStorage });
 
