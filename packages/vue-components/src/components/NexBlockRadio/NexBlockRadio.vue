@@ -5,13 +5,13 @@
       :key="item.value"
       class="nex-block-radio__item"
       :class="{ 'nex-block-radio__item--active': item.value === value, 'nex-block-radio__item--disabled': item.disabled }"
-      @click="!item.disabled && onChange(item.value)"
+      @click="!disabled && !item.disabled && onChange(item.value)"
     >
       <div class="nex-block-radio__top">
         <span class="nex-block-radio__title">{{ item.label }}</span>
         <a-radio
           :checked="item.value === value"
-          :disabled="item.disabled"
+          :disabled="disabled || item.disabled"
         />
       </div>
       <div class="nex-block-radio__desc">
@@ -25,6 +25,7 @@ import { Form, Radio as ARadio } from 'ant-design-vue';
 
 const { value } = defineProps<{
   value: string;
+  disabled?: boolean;
   options: {
     label: string;
     disabled?: boolean;
