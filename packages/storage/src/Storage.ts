@@ -1,4 +1,5 @@
 export type StorageCryptFn = (val: string) => string;
+export type StorageKey = string | { prefix: string };
 export interface StorageOption {
   /** 驱动：localStorage、sessionStorage，默认使用 localStorage */
   driver?: Storage;
@@ -10,7 +11,7 @@ export interface StorageOption {
   decryptFn?: StorageCryptFn;
 }
 export interface StorageConfig {
-  // 过期时间，单位为秒
+  // 过期时间，单位为秒，0 表示永不过期
   expire?: number;
 }
 export interface StorageData<T = unknown> {
@@ -30,10 +31,10 @@ export default class StorageCls {
   private decryptFn: StorageCryptFn = (val) => val;
 
   constructor(option: StorageOption) {
-    this.driver = option.driver || window.localStorage;
-    this.prefix = option.prefix || '';
-    this.encryptFn = option.encryptFn || this.encryptFn;
-    this.decryptFn = option.decryptFn || this.decryptFn;
+    this.driver = option.driver ?? window.localStorage;
+    this.prefix = option.prefix ?? '';
+    this.encryptFn = option.encryptFn ?? this.encryptFn;
+    this.decryptFn = option.decryptFn ?? this.decryptFn;
   }
 
   /**
@@ -42,10 +43,10 @@ export default class StorageCls {
    * @returns
    */
   config(option: StorageOption) {
-    this.driver = option.driver || this.driver;
-    this.prefix = option.prefix || this.prefix;
-    this.encryptFn = option.encryptFn || this.encryptFn;
-    this.decryptFn = option.decryptFn || this.decryptFn;
+    this.driver = option.driver ?? this.driver;
+    this.prefix = option.prefix ?? this.prefix;
+    this.encryptFn = option.encryptFn ?? this.encryptFn;
+    this.decryptFn = option.decryptFn ?? this.decryptFn;
     return this;
   }
 
@@ -76,31 +77,77 @@ export default class StorageCls {
     key = this.getKey(key);
     let value = this.driver.getItem(key) || '';
     if (value) {
-      value = this.decryptFn(value);
-      const storageData = JSON.parse(value) as StorageData<T>;
-      const time = new Date().getTime();
-      if (storageData.expire && time > storageData.expire) {
-        this.remove(key);
+      try {
+        value = this.decryptFn(value);
+        const storageData = JSON.parse(value) as StorageData<T>;
+        const time = new Date().getTime();
+        if (storageData.expire && time > storageData.expire) {
+          this.driver.removeItem(key);
+          return null;
+        }
+        return storageData.data;
+      } catch {
         return null;
       }
-      return storageData.data;
     }
     return null;
   }
 
   /**
-   * 移除缓存
-   * @param keys
+   * 移除缓存，支持精确匹配和前缀匹配，支持展开传参和数组传参
+   *
+   * @param args - 要移除的 key 模式：
+   *   - `string` — 精确匹配 key
+   *   - `{ prefix: string }` — 前缀匹配，移除所有以该前缀开头的 key
+   *   - 也支持传入数组
+   *
+   * @example
+   * // 精确移除
+   * remove('token', 'userInfo')
+   *
+   * @example
+   * // 前缀移除
+   * remove({ prefix: 'temp_' })
+   *
+   * @example
+   * // 混合使用
+   * remove('token', { prefix: 'cache_' })
+   *
+   * @example
+   * // 数组传参
+   * remove(['token', { prefix: 'temp_' }])
    */
-  remove(...keys: string[]) {
-    keys.forEach((item) => this.driver.removeItem(this.getKey(item)));
+  remove(...args: StorageKey[] | [StorageKey[]]) {
+    const patterns: StorageKey[] = Array.isArray(args[0]) ? args[0] : (args as StorageKey[]);
+    const allKeys = this.keys();
+    const keysToRemove = allKeys.filter((key) =>
+      patterns.some((pattern) => {
+        if (typeof pattern === 'string') return key === pattern;
+        return key.startsWith(pattern.prefix);
+      }),
+    );
+    keysToRemove.forEach((key) => this.driver.removeItem(this.getKey(key)));
   }
 
   /**
    * 清除缓存
+   * @param scope - 清除范围：
+   *   - `'managed'`（默认）：仅删除当前库管理的（匹配 prefix 的）key
+   *   - `'all'`：清空整个 driver，包括非本库写入的数据
    */
-  clear() {
-    this.driver.clear();
+  clear(scope: 'managed' | 'all' = 'managed') {
+    if (scope === 'all') {
+      this.driver.clear();
+      return;
+    }
+    const keysToRemove: string[] = [];
+    for (let i = 0; i < this.driver.length; i++) {
+      const fullKey = this.driver.key(i);
+      if (fullKey && fullKey.startsWith(this.prefix)) {
+        keysToRemove.push(fullKey);
+      }
+    }
+    keysToRemove.forEach((key) => this.driver.removeItem(key));
   }
 
   /**

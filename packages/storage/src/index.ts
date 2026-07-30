@@ -1,6 +1,6 @@
-import StorageCls, { type StorageConfig, type StorageOption } from './Storage';
+import StorageCls, { type StorageConfig, type StorageOption, type StorageKey } from './Storage';
 
-export { StorageCls };
+export { StorageCls, type StorageKey };
 
 const globalStorage = new StorageCls({ driver: window.localStorage });
 
@@ -84,41 +84,52 @@ export const setStorage = (key: string, data: any, config?: StorageConfig) => {
 export const getStorage = <T = any>(key: string) => globalStorage.get<T>(key);
 
 /**
- * 移除一个或多个缓存
+ * 移除缓存，支持精确匹配和前缀匹配，支持展开传参和数组传参
  *
- * @param keys - 要移除的缓存 key，支持传入多个
+ * @param args - 要移除的 key 模式：
+ *   - `string` — 精确匹配 key
+ *   - `{ prefix: string }` — 前缀匹配，移除所有以该前缀开头的 key
+ *   - 也支持传入数组
  *
  * @example
- * // 移除单个
+ * // 精确移除单个
  * removeStorage('token');
  *
  * @example
- * // 移除多个
+ * // 精确移除多个
  * removeStorage('token', 'userInfo');
- */
-export const removeStorage = (...keys: string[]) => globalStorage.remove(...keys);
-
-/**
- * 清除所有缓存（注意：会清除当前 driver 下的全部数据，包括非本库写入的）
  *
  * @example
- * clearStorage();
+ * // 前缀移除：移除所有以 'temp_' 开头的 key
+ * removeStorage({ prefix: 'temp_' });
+ *
+ * @example
+ * // 混合使用：精确移除 token，前缀移除所有 cache_ 开头的 key
+ * removeStorage('token', { prefix: 'cache_' });
+ *
+ * @example
+ * // 数组传参
+ * removeStorage(['token', { prefix: 'temp_' }]);
  */
-export const clearStorage = () => globalStorage.clear();
+export const removeStorage = (...args: StorageKey[] | [StorageKey[]]) => globalStorage.remove(...args);
 
 /**
- * 清除缓存排除项的类型：
- * - `string` — 精确匹配 key
- * - `{ prefix: string }` — 前缀匹配，保留所有以该前缀开头的 key
+ * 清除缓存
+ *
+ * @param scope - 清除范围：
+ *   - `'managed'`（默认）：仅删除当前库管理的（匹配 prefix 的）key
+ *   - `'all'`：清空整个 driver，包括非本库写入的数据
+ *
+ * @example
+ * // 仅清除当前库管理的缓存
+ * clearStorage();
+ * clearStorage('managed');
+ *
+ * @example
+ * // 清空整个 localStorage / sessionStorage
+ * clearStorage('all');
  */
-export type ClearStorageExcludeKey = string | { prefix: string };
-
-const matchKey = (key: string, patterns: ClearStorageExcludeKey[]): boolean => {
-  return patterns.some((pattern) => {
-    if (typeof pattern === 'string') return key === pattern;
-    return key.startsWith(pattern.prefix);
-  });
-};
+export const clearStorage = (scope: 'managed' | 'all' = 'managed') => globalStorage.clear(scope);
 
 /**
  * 清除所有缓存，但保留指定的 key。支持精确匹配和前缀匹配，支持展开传参和数组传参。
@@ -145,23 +156,16 @@ const matchKey = (key: string, patterns: ClearStorageExcludeKey[]): boolean => {
  * // 混合使用：精确保留 token，前缀保留所有 session_ 开头的 key，清除其余
  * clearStorageExclude('token', { prefix: 'session_' });
  */
-export const clearStorageExclude = (...args: ClearStorageExcludeKey[] | [ClearStorageExcludeKey[]]) => {
-  const patterns: ClearStorageExcludeKey[] = Array.isArray(args[0]) ? args[0] : (args as ClearStorageExcludeKey[]);
+export const clearStorageExclude = (...args: StorageKey[] | [StorageKey[]]) => {
+  const patterns: StorageKey[] = Array.isArray(args[0]) ? args[0] : (args as StorageKey[]);
 
   const allKeys = globalStorage.keys();
-  const valuesToKeep: Record<string, any> = {};
+  const keysToRemove = allKeys.filter((key) =>
+    !patterns.some((pattern) => {
+      if (typeof pattern === 'string') return key === pattern;
+      return key.startsWith(pattern.prefix);
+    }),
+  );
 
-  allKeys.forEach((key) => {
-    if (matchKey(key, patterns)) {
-      const value = getStorage(key);
-      if (value !== null) {
-        valuesToKeep[key] = value;
-      }
-    }
-  });
-
-  clearStorage();
-  Object.keys(valuesToKeep).forEach((key) => {
-    setStorage(key, valuesToKeep[key]);
-  });
+  removeStorage(keysToRemove);
 };
